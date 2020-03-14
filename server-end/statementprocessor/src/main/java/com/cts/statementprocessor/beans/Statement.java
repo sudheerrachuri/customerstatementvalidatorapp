@@ -1,9 +1,7 @@
 package com.cts.statementprocessor.beans;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+
 
 import java.math.BigDecimal;
 

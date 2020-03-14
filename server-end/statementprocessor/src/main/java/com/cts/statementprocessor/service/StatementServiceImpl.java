@@ -4,14 +4,9 @@ import com.cts.statementprocessor.beans.ErrorRecord;
 import com.cts.statementprocessor.beans.Result;
 import com.cts.statementprocessor.beans.Statement;
 import lombok.extern.slf4j.Slf4j;
-import org.decimal4j.util.DoubleRounder;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -21,30 +16,32 @@ public class StatementServiceImpl implements StatementService {
     public Result parseStatement(List<Statement> statements) {
         Result result = new Result();
 
-        valdiateStatments(statements);
+        validateStatments(statements);
+
         return null;
     }
 
-    private List<ErrorRecord> valdiateStatments(List<Statement> statements) {
+    private List<ErrorRecord> validateStatments(List<Statement> statements) {
         List<ErrorRecord> duplicateRecords = getDuplicateRecords(statements);
-        List<ErrorRecord> wrongMutaionRecords = getWrongMutaionRecords(statements);
+        List<ErrorRecord> wrongMutationRecords = getWrongMutationRecords(statements);
 
-        if (duplicateRecords.isEmpty() && duplicateRecords.isEmpty()) {
+        if (duplicateRecords.isEmpty() && wrongMutationRecords.isEmpty()) {
             return null;
-        } else if (duplicateRecords.size() > 0 && wrongMutaionRecords.size() > 0) {
-            List<ErrorRecord> wrongMutaionRecordsCopy = new ArrayList<>(wrongMutaionRecords);
-            wrongMutaionRecordsCopy.removeAll(duplicateRecords);
-            duplicateRecords.addAll(wrongMutaionRecordsCopy);
+        } else if (duplicateRecords.size() > 0 && wrongMutationRecords.size() > 0) {
+            List<ErrorRecord> wrongMutationRecordsCopy = new ArrayList<>(wrongMutationRecords);
+            wrongMutationRecordsCopy.removeAll(duplicateRecords);
+            duplicateRecords.addAll(wrongMutationRecordsCopy);
+
             return duplicateRecords;
         } else if (duplicateRecords.size() > 0) {
             log.info("dup->" + duplicateRecords);
-        } else if (wrongMutaionRecords.size() > 0) {
-            log.info("wrongMut->" + wrongMutaionRecords);
+        } else if (wrongMutationRecords.size() > 0) {
+            log.info("wrongMut->" + wrongMutationRecords);
         }
         return null;
     }
 
-    private List<ErrorRecord> getWrongMutaionRecords(List<Statement> statements) {
+    private List<ErrorRecord> getWrongMutationRecords(List<Statement> statements) {
         List<ErrorRecord> wrongMutationRecord = new ArrayList<>();
         for (Statement statement : statements) {
             if (checkEndBalanceAndMutation(statement)) {
@@ -59,24 +56,24 @@ public class StatementServiceImpl implements StatementService {
     }
 
     private ErrorRecord getErrorRecord(Statement statement){
-        ErrorRecord record = new ErrorRecord();
-        record.setAccountNumber(statement.getAccountNumber());
-        record.setReference(statement.getReference());
-        return record;
+        ErrorRecord errRecord = new ErrorRecord();
+        errRecord.setAccountNumber(statement.getAccountNumber());
+        errRecord.setReference(statement.getReference());
+        return errRecord;
     }
 
-    private List<ErrorRecord> getDuplicateRecords(List<Statement> jsonData) {
+    private List<ErrorRecord> getDuplicateRecords(List<Statement> statements) {
         HashMap<Long, Statement> hMap = new HashMap<>();
-        List<ErrorRecord> records = new ArrayList<>();
-        for (Statement x : jsonData) {
-            Long ref = x.getReference();
+        List<ErrorRecord> errRecords = new ArrayList<>();
+        for (Statement statement : statements) {
+            Long ref = statement.getReference();
             if (hMap.containsKey(ref)) {
-                records.add(getErrorRecord(x));
+                errRecords.add(getErrorRecord(statement));
             } else {
-                hMap.put(x.getReference(), x);
+                hMap.put(statement.getReference(), statement);
             }
         }
-        return records;
+        return errRecords;
     }
 
 

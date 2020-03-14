@@ -22,7 +22,8 @@ public class StatementController {
 
     @PostMapping("/process")
     public ResponseEntity<Result> processJsonData(@RequestBody List<Statement> jsonData){
-        Result results =statementService.parseStatement(jsonData);
-        return new ResponseEntity<>(results, HttpStatus.OK);
+        Result jsonResults = statementService.parseStatement(jsonData);
+
+        return new ResponseEntity<>(jsonResults, HttpStatus.OK);
     }
 }
