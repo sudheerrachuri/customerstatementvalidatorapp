@@ -7,5 +7,5 @@ import java.util.List;
 
 
 public interface CustomerStatementService {
-    TransactionResponse parseCustomerStatement(List<CustomerStatement> customerStatements);
+    TransactionResponse processCustomerStatement(List<CustomerStatement> customerStatements);
 }
