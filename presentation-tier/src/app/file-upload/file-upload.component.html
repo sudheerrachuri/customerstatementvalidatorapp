@@ -1,0 +1,7 @@
+    <label>File Upload</label>
+    <input type="file"  accept=".json" (change)="onChange($event.target.files)">
+
+<div>
+    <h3>File Content</h3>
+    <pre> {{fileContent}} </pre>
+</div>
