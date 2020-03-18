@@ -1,20 +1,13 @@
 package com.cts.statementprocessor.sevice;
 
-import com.cts.statementprocessor.beans.CustomerStatement;
-import com.cts.statementprocessor.beans.ErrorRecord;
-import com.cts.statementprocessor.beans.TransactionResponse;
-import com.cts.statementprocessor.exception.JsonParseErrorException;
+import com.cts.statementprocessor.model.CustomerStatement;
+import com.cts.statementprocessor.model.TransactionResponse;
 import com.cts.statementprocessor.service.CustomerStatementService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +22,6 @@ public class CustomerStatementServiceTests {
     @Autowired
     private CustomerStatementService service;
 
-//    jsonData=[]
     List<CustomerStatement> list  = new ArrayList<>();
 
     CustomerStatement cs = new CustomerStatement();

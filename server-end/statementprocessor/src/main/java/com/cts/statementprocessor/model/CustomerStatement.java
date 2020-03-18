@@ -1,4 +1,4 @@
-package com.cts.statementprocessor.beans;
+package com.cts.statementprocessor.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

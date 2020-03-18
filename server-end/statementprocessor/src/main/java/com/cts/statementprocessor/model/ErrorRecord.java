@@ -1,8 +1,6 @@
-package com.cts.statementprocessor.beans;
+package com.cts.statementprocessor.model;
 
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 public class ErrorRecord {

@@ -1,11 +1,11 @@
 package com.cts.statementprocessor.service;
 
-import com.cts.statementprocessor.beans.CustomerStatement;
-import com.cts.statementprocessor.beans.TransactionResponse;
+import com.cts.statementprocessor.model.CustomerStatement;
+import com.cts.statementprocessor.model.TransactionResponse;
 
 import java.util.List;
 
 
 public interface CustomerStatementService {
-    TransactionResponse parseCustomerStatement(List<CustomerStatement> statements);
+    TransactionResponse parseCustomerStatement(List<CustomerStatement> customerStatements);
 }

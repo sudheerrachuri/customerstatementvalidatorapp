@@ -1,6 +1,6 @@
 package com.cts.statementprocessor.exception;
 
-import com.cts.statementprocessor.beans.TransactionResponse;
+import com.cts.statementprocessor.model.TransactionResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;

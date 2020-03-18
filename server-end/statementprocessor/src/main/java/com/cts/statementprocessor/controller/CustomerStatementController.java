@@ -1,7 +1,7 @@
 package com.cts.statementprocessor.controller;
 
-import com.cts.statementprocessor.beans.CustomerStatement;
-import com.cts.statementprocessor.beans.TransactionResponse;
+import com.cts.statementprocessor.model.CustomerStatement;
+import com.cts.statementprocessor.model.TransactionResponse;
 import com.cts.statementprocessor.service.CustomerStatementService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,14 +26,13 @@ public class CustomerStatementController {
 
     /**
      * This api will validate rabobank satements
-     * @param statements rabo bank statements as MultiPartFile
-     * @return
+     * @param customerStatements rabo bank statements as customer statements
+     * @return transaction response
      */
     @PostMapping("/process")
-    public ResponseEntity<TransactionResponse> processStatements(@RequestBody List<CustomerStatement> statements) {
-        log.info("rabo bank statement validation");
-        TransactionResponse jsonResults = customerStatementService.parseCustomerStatement(statements);
-
-        return new ResponseEntity<>(jsonResults, HttpStatus.OK);
+    public ResponseEntity<TransactionResponse> processStatements(@RequestBody List<CustomerStatement> customerStatements) {
+        log.info("rabo bank statement validation"+customerStatements);
+        TransactionResponse transactionResponse = customerStatementService.parseCustomerStatement(customerStatements);
+        return new ResponseEntity<>(transactionResponse, HttpStatus.OK);
     }
 }
