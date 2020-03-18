@@ -27,7 +27,7 @@ public class CustomerStatementServiceImpl implements CustomerStatementService {
      * @return transaction response
      */
     @Override
-    public TransactionResponse parseCustomerStatement(List<CustomerStatement> customerStatements) {
+    public TransactionResponse processCustomerStatement(List<CustomerStatement> customerStatements) {
         log.info("inside parse customer statement method");
         try {
             transactionResponse = Validationutil.validateStatements(customerStatements);
