@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class Result {
+public class TransactionResponse {
 
     private String result;
     List<ErrorRecord> errorRecords;
