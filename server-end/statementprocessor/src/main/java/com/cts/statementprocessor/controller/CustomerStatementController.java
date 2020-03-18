@@ -32,7 +32,7 @@ public class CustomerStatementController {
     @PostMapping("/process")
     public ResponseEntity<TransactionResponse> processStatements(@RequestBody List<CustomerStatement> customerStatements) {
         log.info("rabo bank statement validation"+customerStatements);
-        TransactionResponse transactionResponse = customerStatementService.parseCustomerStatement(customerStatements);
+        TransactionResponse transactionResponse = customerStatementService.processCustomerStatement(customerStatements);
         return new ResponseEntity<>(transactionResponse, HttpStatus.OK);
     }
 }
